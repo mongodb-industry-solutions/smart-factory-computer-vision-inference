@@ -1,4 +1,4 @@
-# Smart Factory Computer Vision Inference for Digital Twin's 
+# Smart Factory Computer Vision Inference for Digital Twin
 The aim of this repository is threefold:
 
 1. Show how to get the images from a video camera on a Smart Factory, store them in MongoDB and take advantage of the Document Model.
