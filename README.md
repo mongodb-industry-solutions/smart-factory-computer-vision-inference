@@ -15,3 +15,22 @@ It's important to note that this is an extremely simplified version. Regardless,
 - Anomaly detection.
 - Object detection for sorting.
 - Surveillance
+
+
+## Camera Images from Factory to MongoDB
+
+
+
+## MongoDB image storage
+
+
+## Sagemaker Computer Vision Model
+### Data
+### Training
+### Deployment
+
+
+## Computer Vision Endpoint Inference 
+
+
+## Digital Twin synchronization with Realm and Device Sync
