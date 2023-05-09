@@ -1,0 +1,16 @@
+1	1	1	1	blue, red, white - dark.jpeg
+2	1	1	1	blue, red, white - light.jpeg
+3	1	0	1	blue, white - dark.jpeg
+4	1	0	1	blue, white - light.jpeg
+5	1	1	0	blue,red - dark.jpeg
+6	1	1	0	blue,red - light.jpeg
+7	0	0	0	no pieces - dark.jpeg
+8	0	0	0	no pieces - light.jpeg
+9	1	0	0	only blue - dark.jpeg
+10	1	0	0	only blue - light.jpeg
+11	0	1	0	only red - dark.jpeg
+12	0	1	0	only red - light.jpeg
+13	0	0	1	only white - dark.jpeg
+14	0	0	1	only white - light.jpeg
+15	0	1	1	red, white - dark.jpeg
+16	0	1	1	red, white - light.jpeg
