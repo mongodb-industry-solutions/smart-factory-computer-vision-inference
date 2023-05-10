@@ -26,6 +26,31 @@ It's important to note that this is an extremely simplified version. Regardless,
 
 ## Sagemaker Computer Vision Model
 ### Data
+###### Folder Structure
+```
+Model Training Data
+│
+└───all-imgs
+│   │   img1.jpeg
+│   │   img2.jpeg
+|   |   ...
+│   
+└───train-imgs
+│   │   img1.jpeg
+│   │   img2.jpeg
+|   |   ...
+│   
+└───valid-imgs
+│   │   img3.jpeg
+│   │   img4.jpeg
+|   |   ...
+│   
+└───train-annots
+│   │   train.lst
+│   
+└───valid-annots
+    │   valid.lst
+```
 ### Training
 ### Deployment
 
