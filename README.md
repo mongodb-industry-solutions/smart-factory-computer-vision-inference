@@ -17,8 +17,20 @@ It's important to note that this is an extremely simplified version. Regardless,
 - Surveillance
 
 
-## Camera Images from Factory to MongoDB
+## Intro
+### Setup
+At the highest level, we three main components:
+1. A [Fischertechnik Factory](https://www.fischertechnik.de/en/products/industry-and-universities/training-models/567769-training-factory-industry-4-0-9v-v-2) that is constantly generating new data either from sensors, production, or status checks.
+2. A Unity 3D Model of the [Fischertechnik Factory](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model) which acts as the Digital Twin of the real Factory
+3. MongoDB in the middle of both. Which acts not only as the storage layer but also as the communication layer with Realm and Device Sync, as well as the main hub to use the data after it is stored. In this use case, we have connected with AWS Sagemaker in order to predict with Computer Vision the status of the warehouse of the Factory. 
 
+The Smart Factory has a camera installed which captures images and 
+### 
+
+
+
+## Camera Images from Factory to MongoDB
+The
 
 
 ## MongoDB image storage
