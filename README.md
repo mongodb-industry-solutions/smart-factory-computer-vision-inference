@@ -20,9 +20,9 @@ It's important to note that this is an extremely simplified version. Regardless,
 ## Intro
 ### Setup
 At the highest level, we three main components:
-1. A [Fischertechnik Factory](https://www.fischertechnik.de/en/products/industry-and-universities/training-models/567769-training-factory-industry-4-0-9v-v-2) that is constantly generating new data either from sensors, production, or status checks.
-2. A Unity 3D Model of the [Fischertechnik Factory](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model) which acts as the Digital Twin of the real Factory
-3. MongoDB in the middle of both. Which acts not only as the storage layer but also as the communication layer with Realm and Device Sync, as well as the main hub to use the data after it is stored. In this use case, we have connected with AWS Sagemaker in order to predict with Computer Vision the status of the warehouse of the Factory. 
+1. **A [Fischertechnik Factory](https://www.fischertechnik.de/en/products/industry-and-universities/training-models/567769-training-factory-industry-4-0-9v-v-2)** - Constantly generating new data either from sensors, production, or status checks.
+2. **A Unity 3D Model of the [Fischertechnik Factory](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model)** - Which acts as the Digital Twin of the real Factory
+3. **MongoDB in the middle of both** - Which acts not only as the storage layer but also as the communication layer with Realm and Device Sync, as well as the main hub to use the data after it is stored.
 
 The Smart Factory has a camera installed which captures images and the MQTT broker sends them as Base64 encoded strings. 
 ### 
@@ -33,14 +33,16 @@ The Smart Factory has a camera installed which captures images and the MQTT brok
 
 
 
-## MongoDB image storage
+## Storing images in MongoDB
+#### MongoDB Standalone
 There are many ways to store images in MongoDB such as:
-- [GridFS](https://www.mongodb.com/docs/manual/core/gridfs/) - Most efficient way to store large files within MongoDB only. Files can be larger than 16MB
-- As on the BSON Types: [Binary Data](https://www.mongodb.com/docs/manual/reference/bson-types/#binary-data) - Files can't exceed [MongoDB BSON document limit of 16 MB](https://www.mongodb.com/docs/manual/core/document/#document-size-limit)
-- Base64 blob - Our chosen method for this demo.
+- **[GridFS](https://www.mongodb.com/docs/manual/core/gridfs/)** - Most efficient way to store large files within MongoDB only. Files can be larger than 16MB
+- **[Binary Data](https://www.mongodb.com/docs/manual/reference/bson-types/#binary-data)** - Files can't exceed [MongoDB BSON document limit of 16 MB](https://www.mongodb.com/docs/manual/core/document/#document-size-limit)
+- **Base64 strings** - Our chosen method for this demo.
 
-It's important to note that when file are too large, there are alternative methods to store them more efficiently and cost-effectively.
+It's important to note that when files are too large, there are other more cost-effective methods to store them.
 
+#### Object Storage + MongoDB
 A common solution is to store the images/videos in an object storage service such as AWS S3 or Google Cloud Storage and then store the information/metadata relevant to find and process those files in MongoDB. 
 
 A successful implementation of this efficient architecture is [Bosch's IoT Data Storage](https://bosch-iot-insights.com/static-contents/docu/html/Data-storage.html). 
@@ -55,6 +57,17 @@ For the purpose of this demo, we will store the files directly as Base64 encoded
 
 ## Sagemaker Computer Vision Model
 ### Data
+
+We have a training sample size of 16 images, and a validation sample size of just 8 images. We are concious that this is by a far stretch not even close to be a usable Computer Vision Model. 
+
+Nevertheless, this repo is not intended to show how to train and validate a usable CV model, but rather to show all the steps to get an End-to-End solution to conect you IoT device with a Digital Twin and use Computer Vision to infer a specific problem. 
+
+
+###### Image Sample
+
+
+<img alt="Sample Validation Image" src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/blob/main/Model%20Training%20Data/all-imgs/blue%2C%20red%2C%20white.jpeg">
+
 ###### Folder Structure
 ```
 Model Training Data
