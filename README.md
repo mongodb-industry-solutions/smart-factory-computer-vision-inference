@@ -65,6 +65,13 @@ We have a training sample size of 16 images, and a validation sample size of jus
 Nevertheless, this repo is not intended to show how to train and validate a usable CV model, but rather to show all the steps to get an End-to-End solution to conect you IoT device with a Digital Twin and use Computer Vision to infer a specific problem. 
 
 
+We are going to build a multi-label classification model with the following 3 classes:
+- Blue piece is present: 0
+- Red piece is present: 1
+- White piece is present: 2
+
+
+
 ###### Image Sample
 
 
@@ -77,6 +84,8 @@ Model Training Data
 └───all-imgs
 │   │   img1.jpeg
 │   │   img2.jpeg
+│   │   img3.jpeg
+│   │   img4.jpeg
 |   |   ...
 │   
 └───train-imgs
@@ -94,6 +103,16 @@ Model Training Data
 │   
 └───valid-annots
     │   valid.lst
+```
+
+###### .lst file Structure
+The Sagemaker built-in model uses .lst files for the annotations. These are files where information is separated by a tab, and each line represents a sample.
+Below is a sample of the file.
+```
+1	1	1	1	blue, red, white - dark.jpeg
+2	1	1	1	blue, red, white - light.jpeg
+...
+16	0	1	1	red, white - light.jpeg
 ```
 ### Training
 #### How model was evaluated
