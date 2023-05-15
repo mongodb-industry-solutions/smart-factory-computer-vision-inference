@@ -1,0 +1,5 @@
+{
+    "name": "AWS_ACCESS_KEY",
+    "value": "AWS_ACCESS_SECRET",
+    "from_secret": true
+}

@@ -1,0 +1,5 @@
+{
+    "name": "AWS_REGION",
+    "value": "eu-west-1",
+    "from_secret": false
+}
