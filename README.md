@@ -30,6 +30,8 @@ The Smart Factory has a camera installed which captures images and the MQTT brok
 
 
 ## Camera Images from Factory to MongoDB
+The images from the Factory are sent via MQTT as base64 encoded strings. We have selected AWS IoT Core as the MQTT broker to receive the images and send them to MongoDB for storage as seen in the image below.
+![Screenshot 2023-05-15 at 14 38 30](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/28a5eb60-81f5-4cb0-9ffa-f6d46b57260a)
 
 
 
