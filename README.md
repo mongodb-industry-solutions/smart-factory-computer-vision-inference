@@ -33,6 +33,19 @@ The Smart Factory has a camera installed which captures images and the MQTT brok
 The images from the Factory are sent via MQTT as base64 encoded strings. We have selected AWS IoT Core as the MQTT broker to receive the images and send them to MongoDB for storage as seen in the image below.
 ![Screenshot 2023-05-15 at 14 38 30](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/28a5eb60-81f5-4cb0-9ffa-f6d46b57260a)
 
+AWS IoT Core has Message Routing, which allows you to connect IoT messages to other services through [Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html) and [Rule Actions](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html). With this, we will take the MQTT messages from the factory and send them to MongoDB.
+
+Now, we have to set up the Factory to send MQTT messages to IoT Core, create the rules in AWS IoT Core and set up an HTTP Enpoint in Atlas to receive the data. Let's check each and one of them.
+
+### Factory to send MQTT messages to IoT Core
+
+### Rules in AWS IoT Core
+
+### Set up an HTTP Enpoint in Atlas
+
+
+
+
 
 
 ## Storing images in MongoDB
@@ -118,7 +131,11 @@ The first column, represents an incremental id to uniquely indentify each sample
 
 More about how to generate lst files for AWS Sagemaker [here](https://sagemaker-examples.readthedocs.io/en/latest/introduction_to_amazon_algorithms/imageclassification_caltech/Image-classification-lst-format-highlevel.html), and [here](https://medium.com/@texasdave2/itty-bitty-lst-file-format-converter-for-machine-learning-image-classification-on-aws-sagemaker-b3828c7ba9cc).
 ### Training
+
 #### How model was evaluated
+
+
+
 ### Deployment
 
 
