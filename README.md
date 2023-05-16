@@ -43,14 +43,13 @@ Let's check each and one of them:
 
 [Smart Factory MQTT configuration](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Smart-Factory-config)
 
-#### Rules in AWS IoT Core
-
-[How to create rules on IoT Core](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/IoT-Core-Rules)
-
-
 #### Set up an HTTP Endpoint in Atlas
 
 [Set up an HTTP Endpoint in Atlas](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Atlas-HTTP-Wndpoint-setup)
+
+#### Rules in AWS IoT Core
+
+[How to create rules on IoT Core](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/IoT-Core-Rules)
 
 
 
