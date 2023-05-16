@@ -37,11 +37,16 @@ AWS IoT Core has Message Routing, which allows you to connect IoT messages to ot
 
 Now, we have to set up the Factory to send MQTT messages to IoT Core, create the rules in AWS IoT Core and set up an HTTP Enpoint in Atlas to receive the data. Let's check each and one of them.
 
-### Factory to send MQTT messages to IoT Core
+#### Factory to send MQTT messages to IoT Core
 
-### Rules in AWS IoT Core
+#### Rules in AWS IoT Core
 
-### Set up an HTTP Enpoint in Atlas
+To create a rule, it's very simple on the AWS Console. 
+* Go to IoT Core service and on the left pane, select **Message Routing** and then **Rules**
+<img width="1668" alt="image" src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/e2eddd13-0268-4323-8ac5-20827f54af9d">
+
+
+#### Set up an HTTP Enpoint in Atlas
 
 
 
