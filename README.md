@@ -33,11 +33,15 @@ The Smart Factory has a camera installed which captures images and the MQTT brok
 The images from the Factory are sent via MQTT as base64 encoded strings. We have selected AWS IoT Core as the MQTT broker to receive the images and send them to MongoDB for storage as seen in the image below.
 ![Screenshot 2023-05-15 at 14 38 30](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/28a5eb60-81f5-4cb0-9ffa-f6d46b57260a)
 
-AWS IoT Core has Message Routing, which allows you to connect IoT messages to other services through [Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html) and [Rule Actions](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html). With this, we will take the MQTT messages from the factory and send them to MongoDB.
+AWS IoT Core allows you to connect IoT messages to other services through [Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html) and [Rule Actions](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html). This is how we will send MQTT messages to MongoDB.
 
-Now, we have to set up the Factory to send MQTT messages to IoT Core, create the rules in AWS IoT Core and set up an HTTP Enpoint in Atlas to receive the data. Let's check each and one of them.
+Now, we have to set up the Factory to send MQTT messages to IoT Core, create the rules in IoT Core and set up an HTTP Enpoint in Atlas to receive the data. 
+
+Let's check each and one of them:
 
 #### Factory to send MQTT messages to IoT Core
+
+[Smart Factory MQTT configutation](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Smart-Factory-config)
 
 #### Rules in AWS IoT Core
 
@@ -46,7 +50,7 @@ Now, we have to set up the Factory to send MQTT messages to IoT Core, create the
 
 #### Set up an HTTP Enpoint in Atlas
 
-
+[Set up an HTTP Enpoint in Atlas](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Atlas-HTTP-Wndpoint-setup)
 
 
 
