@@ -116,7 +116,7 @@ Below is a sample of the file.
 ```
 The first column, represents an incremental id to uniquely indentify each sample. The second, third and fourth columns are a one-hot encoding of each class (1: the class is present in the image, 0: the class is not present.). In order: blue, red, and white. Lastly, the fifth column is the name of the image file.
 
-More about how to generate lst files for AWS Sagemaker [here](https://sagemaker-examples.readthedocs.io/en/latest/introduction_to_amazon_algorithms/imageclassification_caltech/Image-classification-lst-format-highlevel.html).
+More about how to generate lst files for AWS Sagemaker [here](https://sagemaker-examples.readthedocs.io/en/latest/introduction_to_amazon_algorithms/imageclassification_caltech/Image-classification-lst-format-highlevel.html), and [here](https://medium.com/@texasdave2/itty-bitty-lst-file-format-converter-for-machine-learning-image-classification-on-aws-sagemaker-b3828c7ba9cc).
 ### Training
 #### How model was evaluated
 ### Deployment
