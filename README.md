@@ -30,27 +30,27 @@ The Smart Factory has a camera installed which captures images and the MQTT brok
 
 
 ## Camera Images from Factory to MongoDB
-The images from the Factory are sent via MQTT as base64 encoded strings. We have selected AWS IoT Core as the MQTT broker to receive the images and send them to MongoDB for storage as seen in the image below.
+The images from the Factory are sent via MQTT as base64 encoded strings. We have selected AWS IoT Core as the MQTT broker to receive the images and send them to MongoDB for storage, as seen in the image below.
 ![Screenshot 2023-05-15 at 14 38 30](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/28a5eb60-81f5-4cb0-9ffa-f6d46b57260a)
 
 AWS IoT Core allows you to connect IoT messages to other services through [Rules](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html) and [Rule Actions](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rule-actions.html). This is how we will send MQTT messages to MongoDB.
 
-Now, we have to set up the Factory to send MQTT messages to IoT Core, create the rules in IoT Core and set up an HTTP Enpoint in Atlas to receive the data. 
+Now, we have to set up the Factory to send MQTT messages to IoT Core, create the rules in IoT Core and set up an HTTP Endpoint in Atlas to receive the data. 
 
 Let's check each and one of them:
 
 #### Factory to send MQTT messages to IoT Core
 
-[Smart Factory MQTT configutation](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Smart-Factory-config)
+[Smart Factory MQTT configuration](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Smart-Factory-config)
 
 #### Rules in AWS IoT Core
 
-[How to creare rules on IoT Core](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/IoT-Core-Rules)
+[How to create rules on IoT Core](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/IoT-Core-Rules)
 
 
-#### Set up an HTTP Enpoint in Atlas
+#### Set up an HTTP Endpoint in Atlas
 
-[Set up an HTTP Enpoint in Atlas](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Atlas-HTTP-Wndpoint-setup)
+[Set up an HTTP Endpoint in Atlas](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Atlas-HTTP-Wndpoint-setup)
 
 
 
@@ -58,11 +58,11 @@ Let's check each and one of them:
 ## Storing images in MongoDB
 #### MongoDB Standalone
 There are many ways to store images in MongoDB such as:
-- **[GridFS](https://www.mongodb.com/docs/manual/core/gridfs/)** - Most efficient way to store large files within MongoDB only. Files can be larger than 16MB
+- **[GridFS](https://www.mongodb.com/docs/manual/core/gridfs/)** - Most efficient way to store large files within MongoDB only. Files can be larger than  16MB
 - **[Binary Data](https://www.mongodb.com/docs/manual/reference/bson-types/#binary-data)** - Files can't exceed [MongoDB BSON document limit of 16 MB](https://www.mongodb.com/docs/manual/core/document/#document-size-limit)
 - **Base64 strings** - Our chosen method for this demo.
 
-It's important to note that when files are too large, there are other more cost-effective methods to store them.
+It's important to note that when files are too large, there are other, more cost-effective methods to store them.
 
 #### Object Storage + MongoDB
 A common solution is to store the images/videos in an object storage service such as AWS S3 or Google Cloud Storage and then store the information/metadata relevant to find and process those files in MongoDB. 
@@ -80,9 +80,9 @@ For the purpose of this demo, we will store the files directly as Base64 encoded
 ## Sagemaker Computer Vision Model
 ### Data
 
-We have a training sample size of 16 images, and a validation sample size of just 8 images. We are concious that this is by a far stretch not even close to be a usable Computer Vision Model. 
+We have a training sample size of 16 images, and a validation sample size of just 8 images. We are conscious that this is by a far stretch not even close to be a usable Computer Vision Model. 
 
-Nevertheless, this repo is not intended to show how to train and validate a usable CV model, but rather to show all the steps to get an End-to-End solution to conect you IoT device with a Digital Twin and use Computer Vision to infer a specific problem. 
+Nevertheless, this repo is not intended to show how to train and validate a usable CV model, but rather to show all the steps to get an End-to-End solution to connect an IoT device with a Digital Twin and use Computer Vision to infer a specific problem. 
 
 
 We are going to build a multi-label classification model with the following 3 classes:
@@ -134,7 +134,7 @@ Below is a sample of the file.
 ...
 16	0	1	1	red, white - light.jpeg
 ```
-The first column, represents an incremental id to uniquely indentify each sample. The second, third and fourth columns are a one-hot encoding of each class (1: the class is present in the image, 0: the class is not present.). In order: blue, red, and white. Lastly, the fifth column is the name of the image file.
+The first column, represents an incremental id to uniquely identify each sample. The second, third and fourth columns are a one-hot encoding of each class (1: the class is present in the image, 0: the class is not present.). In order: blue, red, and white. Lastly, the fifth column is the name of the image file.
 
 More about how to generate lst files for AWS Sagemaker [here](https://sagemaker-examples.readthedocs.io/en/latest/introduction_to_amazon_algorithms/imageclassification_caltech/Image-classification-lst-format-highlevel.html), and [here](https://medium.com/@texasdave2/itty-bitty-lst-file-format-converter-for-machine-learning-image-classification-on-aws-sagemaker-b3828c7ba9cc).
 ### Training
