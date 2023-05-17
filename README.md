@@ -45,7 +45,7 @@ Let's check each and one of them:
 
 #### Set up an HTTP Endpoint in Atlas
 
-[Set up an HTTP Endpoint in Atlas](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Atlas-HTTP-Wndpoint-setup)
+[Set up an HTTP Endpoint in Atlas](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/tree/main/Atlas-HTTPS-Endpoint-setup)
 
 #### Rules in AWS IoT Core
 
@@ -94,11 +94,11 @@ We are going to build a multi-label classification model with the following 3 cl
 ###### Image Sample
 
 
-<img alt="Sample Validation Image" src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/blob/main/Model%20Training%20Data/all-imgs/blue%2C%20red%2C%20white.jpeg">
+<img alt="Sample Validation Image" src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/blob/main/Model-Training-Data/all-imgs/blue%2C%20red%2C%20white.jpeg">
 
 ###### Folder Structure
 ```
-Model Training Data
+Model-Training-Data
 │
 └───all-imgs
 │   │   img1.jpeg
