@@ -1,12 +1,12 @@
 [
     {
-        "name": "AWS_IoTCoreMQTTSource",
+        "name": "AWS_HttpsEndpointVerification",
         "private": false,
         "run_as_system": true,
         "disable_arg_logs": true
     },
     {
-        "name": "AWS_HttpsEndpointVerification",
+        "name": "AWS_IoTCoreMQTTSource",
         "private": false,
         "run_as_system": true,
         "disable_arg_logs": true

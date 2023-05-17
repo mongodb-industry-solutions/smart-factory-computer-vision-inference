@@ -41,7 +41,7 @@ exports = async function(changeEvent) {
       var white_present = (white_prob > 0.85) ? true : false;
       
       
-      const coll_to_update = context.services.get("mongodb-atlas").db("aws").collection("sagemaker-stock-inference");
+      const coll_to_update = context.services.get("mongodb-atlas").db("aws").collection("sagemaker_stock_inference");
       const stock_doc = await coll_to_update.find({}).sort({"ts":-1}).limit(1).toArray();
 
       coll_to_update.updateOne(

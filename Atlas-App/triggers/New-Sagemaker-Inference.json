@@ -1,4 +1,5 @@
 {
+    "id": "6458ae23eabd343270685ff8",
     "name": "New-Sagemaker-Inference",
     "type": "DATABASE",
     "config": {
@@ -14,11 +15,11 @@
                     "ts",
                     {
                         "$dateSubtract": {
-                            "startDate": "$$NOW",
-                            "unit": "minute",
                             "amount": {
                                 "$numberInt": "1"
-                            }
+                            },
+                            "startDate": "$$NOW",
+                            "unit": "minute"
                         }
                     }
                 ]
