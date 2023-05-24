@@ -10,7 +10,7 @@ In this case, our camera will be sending images of the warehouse to MongoDB and 
 
 <img width="1295" alt="High Level Schema for Digital Twin Sync" src="https://user-images.githubusercontent.com/45240043/236820026-dabaf3a6-ce41-44de-bdcd-d841a46fd9ea.png">
 
-It's important to note that this is an extremely simplified version. Regardless, a similar architecture and implementation can be used for larger and/or different problems such as: 
+It's important to note that this is a simplified version. Regardless, a similar architecture and implementation can be used for larger and/or different problems such as: 
 - Product and Quality inspection.
 - Anomaly detection.
 - Object detection for sorting.
@@ -227,6 +227,88 @@ clf_predictor = clf_estimator.deploy(
 ```
 In our case, the inference type is `ml.t2.medium`, the model name is the same as the parameter `job_name` passed to the estimator class when calling the [.fit()](https://sagemaker.readthedocs.io/en/stable/api/training/estimators.html#sagemaker.estimator.Estimator.fit) method, and finally, our chosen endpoint name will be `smart-factory-wh-stock-inference`.
 ## Computer Vision Endpoint Inference 
+Now that we have the model ready and deployed on an endpoint, it's time to call it for inference. We will do this with an [Atlas Function](https://www.mongodb.com/docs/atlas/app-services/functions/).
+Atlas Functions can run arbitrary JavaScript code that you define. Functions can call other functions and include a built-in client for working with data in MongoDB Atlas clusters. They also include helpful global utilities, support common Node.js built-in modules, and can import and use external packages from the npm registry. 
+
+They are used for low-latency, short-running tasks like data movement, transformations, and validation. 
+
+Here's the [Stock Update](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/blob/main/Atlas-App/functions/Stock_Update.js) Atlas Function which has essentially three parts:
+
+1- Setup - Here we instantiate the Sagemaker runtime with the necessary credential and transform the base64 image into a bitmat so we can send it over the payload. 
+```js
+// Load the AWS SDK for Node.js
+const AWS = require("aws-sdk");
+
+
+const sageMakerRuntime = new AWS.SageMakerRuntime({
+region: context.values.get(`AWS_REGION`),
+accessKeyId: context.values.get(`AWS_ACCESS_KEY_ID`),
+secretAccessKey: context.values.get(`AWS_ACCESS_KEY`)
+});
+
+const collection = context.services.get("mongodb-atlas").db("aws").collection("factory_camera");
+
+const doc = await collection.find({}).sort({"ts":-1}).limit(1).toArray();
+
+const base64Data = doc[0].data
+const base64Image = base64Data.split(";base64,").pop();
+// Convert base64 to buffer
+const bitmap_img = Buffer.from(base64Image, 'base64');
+```
+
+2- Invoking the sagemaker endpoint for inference
+```js
+var params = {
+Body: bitmap_img,
+EndpointName: "smart-factory-wh-stock-inference",
+ContentType: "image/jpeg"
+};
+
+sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
+    if (err) {
+      console.log(err, err.stack);
+    } else {
+        // CODE TO USE RESPONSE DATA FROM SAGEMAKER, PART 3
+    }
+  }
+);
+
+```
+3- Receiving the response back and updating the collection with the new inference. 
+
+```js 
+  sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
+    if (err) {
+      console.log(err, err.stack);
+    } else {
+      responseData = JSON.parse(Buffer.from(data.Body).toString());
+      console.log(responseData);
+      var blue_prob = responseData[0]
+      var red_prob = responseData[1]
+      var white_prob = responseData[2]
+      
+      var blue_present = (blue_prob > 0.85) ? true : false;
+      var red_present = (red_prob > 0.85) ? true : false;
+      var white_present = (white_prob > 0.85) ? true : false;
+      
+      
+      const coll_to_update = context.services.get("mongodb atlas").db("aws").collection("sagemaker_stock_inference");
+      const stock_doc = await coll_to_update.find({}).sort({"ts":-1}).limit(1).toArray();
+
+      coll_to_update.updateOne(
+        {"_id": stock_doc[0]._id},
+        {"$set": {
+          "ts": new Date(),
+          "is_present.blue": blue_present, 
+          "is_present.red":red_present, 
+          "is_present.white": white_present
+        }}
+      );
+      
+      
+    }
+  });
+```
 
 
 ## Digital Twin synchronization with Realm and Device Sync
