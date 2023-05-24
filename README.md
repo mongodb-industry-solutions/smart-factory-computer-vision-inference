@@ -277,7 +277,7 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
 3- Receiving the response back and updating the collection with the new inference. 
 
 ```js 
-  sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
+sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
     if (err) {
       console.log(err, err.stack);
     } else {
@@ -286,12 +286,12 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
       var blue_prob = responseData[0]
       var red_prob = responseData[1]
       var white_prob = responseData[2]
-      
+
       var blue_present = (blue_prob > 0.85) ? true : false;
       var red_present = (red_prob > 0.85) ? true : false;
       var white_present = (white_prob > 0.85) ? true : false;
-      
-      
+
+
       const coll_to_update = context.services.get("mongodb atlas").db("aws").collection("sagemaker_stock_inference");
       const stock_doc = await coll_to_update.find({}).sort({"ts":-1}).limit(1).toArray();
 
@@ -303,11 +303,10 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
           "is_present.red":red_present, 
           "is_present.white": white_present
         }}
-      );
-      
-      
+      ); 
     }
-  });
+  }
+);
 ```
 
 
