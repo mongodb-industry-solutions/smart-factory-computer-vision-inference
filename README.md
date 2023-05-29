@@ -335,6 +335,9 @@ This is arguably the most important part of the demo since it ties everything to
 
 ![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/192afb4b-bc51-4ff1-8a6b-c6c8bfce0661)
 
+![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0137eab4-bd53-4896-bf39-087a23cd0ce3)
+
+
 
 
 
