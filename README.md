@@ -1,6 +1,7 @@
 # Intro - Why Digital Twins Matters and how MongoDB enables them
 The digital twin is a digital representation of the state of the physical world in real time. The data flow between the digital and the physical world is bidirectional. Therefore the state of a device can be changed via the digital or the physical model vice versa.
 
+A few use cases of digital twins are:
 
 **1- Equipment Health Monitoring** - Condition Based Monitoring (CBM) of equipment health that helps in mission planning and ensuring that the selected vessels/ships are ‘healthy’ to perform the necessary mission
 
@@ -14,6 +15,8 @@ The digital twin is a digital representation of the state of the physical world 
 <img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/5c56123d-3def-4a9e-8d11-0ca530b98539" width="60%" height="30%"/>
 </p>
 
+MongoDB enables fast, secure and realiable development and maintenance of these digital twins thanks to the flexible Document model, Time Series Collections, Realm, Device Sync, among others. 
+In this repository we will show an End-to-End application of a Digital Twin reacting in real time to the results of a Computer Vision inference on the physical factory. 
 
 # Smart Factory Computer Vision Inference for Digital Twins
 The aim of this repository is threefold:
@@ -326,5 +329,12 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
 );
 ```
 
-
 ## Digital Twin synchronization with Realm and Device Sync
+
+This is arguably the most important part of the demo since it ties everything together and makes MongoDB an End-to-End solution for Digital Twin applications, like this demo. 
+
+![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/192afb4b-bc51-4ff1-8a6b-c6c8bfce0661)
+
+
+
+
