@@ -1,3 +1,20 @@
+# Intro - Why Digital Twins Matters and how MongoDB enables them
+The digital twin is a digital representation of the state of the physical world in real time. The data flow between the digital and the physical world is bidirectional. Therefore the state of a device can be changed via the digital or the physical model vice versa.
+
+
+**1- Equipment Health Monitoring** - Condition Based Monitoring (CBM) of equipment health that helps in mission planning and ensuring that the selected vessels/ships are ‘healthy’ to perform the necessary mission
+
+**2- Prognostics and Health Management (PHM)** - Identifying abnormalities and fault reasons from critical assets sensor data that helps in planning maintenance activities and driving actions to keep vessels in optimum condition
+
+**3- Schedule Optimization** - Using a discrete event simulation of the shipyard, different optimization strategies can be evaluated efficiently and systematically
+
+**4- Product Performance and Quality Verification** - Using digital twin integrated with physics based modeling to verify that a system design can meet specific performance and quality characteristics
+
+<p align="center">
+<img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/5c56123d-3def-4a9e-8d11-0ca530b98539" width="60%" height="30%"/>
+</p>
+
+
 # Smart Factory Computer Vision Inference for Digital Twins
 The aim of this repository is threefold:
 
