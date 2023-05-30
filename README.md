@@ -1,4 +1,4 @@
-# Intro - Why Digital Twins Matters and how MongoDB enables them
+# Intro - Why Digital Twins Matter and how MongoDB enables them
 The digital twin is a digital representation of the state of the physical world in real time. The data flow between the digital and the physical world is bidirectional. Therefore the state of a device can be changed via the digital or the physical model vice versa.
 
 A few use cases of digital twins are:
