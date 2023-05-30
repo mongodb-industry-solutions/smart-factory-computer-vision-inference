@@ -335,12 +335,14 @@ This is arguably the most important part of the demo since it ties everything to
 
 As explained below in the graphic, the Unity model of the Virtual Factory will have a instance of Realm, which will be connected to MongoDB Atlas through Device Sync. 
 
-The advantage of using 
+**Realm** is an ultra-ligthweight object oriented database designed specifically with network connectivity in mind and optimized for mobile/edge devices. With it, there's no need for an ORM layer and it comes with network-handling capabilities out of the box.
+
+**Device Sync** enables to connect Realm with MongoDB and ensure your devices, twins and apps will always be in Sync with the cloud database thanks to the built-in best-in-class conflict resolution capabilities
 
 
 ![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/192afb4b-bc51-4ff1-8a6b-c6c8bfce0661)
 
-**Companies are implementing Realm and Device Sync for mission-critical applications:** The airline Cathway Pacific changed how pilots logged critical flight data, such as wind speed, elevation, oil pressure, and fuel consumption, manually via pen and paper to a fully digital, tablet-based app with MongoDB, Realm and Device Sync. With this they eliminated all papers from flights and did one of the first zero-paper flights in the world in 2019. Check the full article [here](https://www.mongodb.com/customers/cathay-pacific)
+**Companies are implementing Realm and Device Sync for mission-critical applications:** The airline **Cathway Pacific** changed how pilots logged critical flight data, such as wind speed, elevation, oil pressure, and fuel consumption, manually via pen and paper to a fully digital, tablet-based app with MongoDB, Realm and Device Sync. With this they eliminated all papers from flights and did one of the first zero-paper flights in the world in 2019. Check the [full article here](https://www.mongodb.com/customers/cathay-pacific).
 
 ![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0137eab4-bd53-4896-bf39-087a23cd0ce3)
 
