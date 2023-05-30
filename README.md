@@ -252,9 +252,20 @@ Atlas Functions can run arbitrary JavaScript code that you define. Functions can
 
 They are used for low-latency, short-running tasks like data movement, transformations, and validation. 
 
-Here's the [Stock Update](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/blob/main/Atlas-App/functions/Stock_Update.js) Atlas Function which has essentially three parts:
+Here's the [Stock Update](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/blob/main/Atlas-App/functions/Stock_Update.js) Atlas Function code.
+This function will: 
+1- Retrieve the latest image received from the Factory.
+2- Send the image to Sagemaker for the inference.
+3- Receive the response from Sagemaker, and parse it to a business logical result.  
+4- Update a collection that stores the status of the warehouse with the result. 
 
-1- Setup - Here we instantiate the Sagemaker runtime with the necessary credential and transform the base64 image into a bitmat so we can send it over the payload. 
+
+
+Going deeper into the function:
+
+
+
+0- Setup - Here we instantiate the Sagemaker runtime with the necessary credential and transform the base64 image into a bitmat so we can send it over the payload. 
 ```js
 // Load the AWS SDK for Node.js
 const AWS = require("aws-sdk");
@@ -294,7 +305,7 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
 );
 
 ```
-3- Receiving the response back and updating the collection with the new inference. 
+3- Receiving the response back and updating the collection in MongoDB with the new inference. 
 
 ```js 
 sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
@@ -329,6 +340,7 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
 );
 ```
 
+
 ## Digital Twin synchronization with Realm and Device Sync
 
 This is arguably the most important part of the demo since it ties everything together and makes MongoDB an End-to-End solution for Digital Twin applications.
@@ -355,8 +367,10 @@ At this stage, we have to:
 1- Create the schema in Unity to connect Realm with MongoDB Atlas. 
 2- Make the Virtual Factory react to the results of the Compute Vision model
 
-![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0137eab4-bd53-4896-bf39-087a23cd0ce3)
 
+<p align="center">
+<img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0137eab4-bd53-4896-bf39-087a23cd0ce3" width="60%" height="60%"/>
+</p>
 
 
 
