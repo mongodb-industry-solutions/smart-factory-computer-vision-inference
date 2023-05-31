@@ -1,7 +1,7 @@
 # Intro - Why Digital Twins Matter and how MongoDB enables them
-The digital twin is a digital representation of the state of the physical world in real time. The data flow between the digital and the physical world is bidirectional. Therefore the state of a device can be changed via the digital or the physical model vice versa.
+Digital Twins are a digital representation of the state of the physical world in real time. Additionally, the data flow between the digital and the physical world is bidirectional. Therefore the state of the physical device can be changed via the digital model or vice versa.
 
-A few use cases of digital twins are:
+A few major use cases of digital twins are:
 
 **1- Equipment Health Monitoring** - Condition Based Monitoring (CBM) of equipment health that helps in mission planning and ensuring that the selected vessels/ships are ‘healthy’ to perform the necessary mission
 
@@ -16,9 +16,15 @@ A few use cases of digital twins are:
 </p>
 
 MongoDB enables fast, secure and realiable development and maintenance of these digital twins thanks to the flexible Document model, Time Series Collections, Realm, Device Sync, among others. 
+
 In this repository we will show an End-to-End application of a Digital Twin reacting in real time to the results of a Computer Vision inference on the physical factory. 
 
 # Smart Factory Computer Vision Inference for Digital Twins
+The premise is simple: 
+
+We have a Physical Factory with a Digital Twin developed in Unity. Now we want to order a piece on the Digital Twin and make the Physical Factory run at the same time to produce the good. How do we make the Digital Twin aware of the stock in the warehouse of the Physical Factory so we make it possible or not to order within Unity? We will have a camera pointing to the warehouse of a Physical Factory and sending images to MongoDB and Sagemaker to infer the stock of the physical warehouse with Computer Vision. Once we've inferred the stock, we will make the Digital Twin Realm database aware of the state of it thanks to Devicy Sync. 
+
+
 The aim of this repository is threefold:
 
 1. Show how to get the images from a video camera on a Smart Factory, store them in MongoDB and take advantage of the Document Model.
@@ -247,10 +253,9 @@ clf_predictor = clf_estimator.deploy(
 ```
 In our case, the inference type is `ml.t2.medium`, the model name is the same as the parameter `job_name` passed to the estimator class when calling the [.fit()](https://sagemaker.readthedocs.io/en/stable/api/training/estimators.html#sagemaker.estimator.Estimator.fit) method, and finally, our chosen endpoint name will be `smart-factory-wh-stock-inference`.
 ## Computer Vision Endpoint Inference 
-Now that we have the model ready and deployed on an endpoint, it's time to call it for inference. We will do this with an [Atlas Function](https://www.mongodb.com/docs/atlas/app-services/functions/).
-Atlas Functions can run arbitrary JavaScript code that you define. Functions can call other functions and include a built-in client for working with data in MongoDB Atlas clusters. They also include helpful global utilities, support common Node.js built-in modules, and can import and use external packages from the npm registry. 
+Now that we have the model ready and deployed on an endpoint, it's time to call it for inference. We will do this with an [Atlas Function](https://www.mongodb.com/docs/atlas/app-services/functions/). They are used for low-latency, short-running tasks like data movement, transformations, and validation. 
+Atlas Functions can run arbitrary JavaScript code that you define. They can call other functions and include a built-in client for working with data in MongoDB Atlas clusters. They also include helpful global utilities, support common Node.js built-in modules, and can import and use external packages from the npm registry. 
 
-They are used for low-latency, short-running tasks like data movement, transformations, and validation. 
 
 Here's the [Stock Update](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/blob/main/Atlas-App/functions/Stock_Update.js) Atlas Function code.
 This function will: 
@@ -265,7 +270,7 @@ Going deeper into the function:
 
 
 
-0- Setup - Here we instantiate the Sagemaker runtime with the necessary credential and transform the base64 image into a bitmat so we can send it over the payload. 
+###### 0- Setup - Here we instantiate the Sagemaker runtime with the necessary credential and transform the base64 image into a bitmat so we can send it over the payload. 
 ```js
 // Load the AWS SDK for Node.js
 const AWS = require("aws-sdk");
@@ -276,7 +281,9 @@ region: context.values.get(`AWS_REGION`),
 accessKeyId: context.values.get(`AWS_ACCESS_KEY_ID`),
 secretAccessKey: context.values.get(`AWS_ACCESS_KEY`)
 });
-
+```
+###### 1- Retrieve the latest image received from the Factory.
+```js
 const collection = context.services.get("mongodb-atlas").db("aws").collection("factory_camera");
 
 const doc = await collection.find({}).sort({"ts":-1}).limit(1).toArray();
@@ -286,8 +293,10 @@ const base64Image = base64Data.split(";base64,").pop();
 // Convert base64 to buffer
 const bitmap_img = Buffer.from(base64Image, 'base64');
 ```
+We additionally convert the image to bitmap so it can be sent as Payload to Sagemaker. 
 
-2- Invoking the sagemaker endpoint for inference
+
+###### 2- Send the image to Sagemaker for the inference.
 ```js
 var params = {
 Body: bitmap_img,
@@ -303,10 +312,9 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
     }
   }
 );
-
 ```
-3- Receiving the response back and updating the collection in MongoDB with the new inference. 
 
+###### 3- Receive the response from Sagemaker, and parse it to a business logical result. 
 ```js 
 sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
     if (err) {
@@ -321,7 +329,6 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
       var blue_present = (blue_prob > 0.85) ? true : false;
       var red_present = (red_prob > 0.85) ? true : false;
       var white_present = (white_prob > 0.85) ? true : false;
-
 
       const coll_to_update = context.services.get("mongodb atlas").db("aws").collection("sagemaker_stock_inference");
       const stock_doc = await coll_to_update.find({}).sort({"ts":-1}).limit(1).toArray();
@@ -340,7 +347,44 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
 );
 ```
 
+###### 4- Update the collection that stores the status of the warehouse with the result.
+```js 
+sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
+    if (err) {
+      console.log(err, err.stack);
+    } else {
+      responseData = JSON.parse(Buffer.from(data.Body).toString());
+      console.log(responseData);
+      var blue_prob = responseData[0]
+      var red_prob = responseData[1]
+      var white_prob = responseData[2]
 
+      var blue_present = (blue_prob > 0.85) ? true : false;
+      var red_present = (red_prob > 0.85) ? true : false;
+      var white_present = (white_prob > 0.85) ? true : false;
+
+      const coll_to_update = context.services.get("mongodb atlas").db("aws").collection("sagemaker_stock_inference");
+      const stock_doc = await coll_to_update.find({}).sort({"ts":-1}).limit(1).toArray();
+
+      coll_to_update.updateOne(
+        {"_id": stock_doc[0]._id},
+        {"$set": {
+          "ts": new Date(),
+          "is_present.blue": blue_present, 
+          "is_present.red":red_present, 
+          "is_present.white": white_present
+        }}
+      ); 
+    }
+  }
+);
+```
+### Where the Atlas Function writes the results
+We have created the collection `aws.sagemaker_stock_inference` to store the response coming from sagemaker as a simple boolean where we will specify whether the blue, red or white price is present. The collection looks like this:
+<p align="center">
+<img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0137eab4-bd53-4896-bf39-087a23cd0ce3" width="60%" height="60%"/>
+</p>
+This collection will be synced with the Realm database on the Digital Factory, and it's what will be used to determine whether or not we can order a piece within the Digital Factory
 ## Digital Twin synchronization with Realm and Device Sync
 
 To see the full code go to the [Smart-Factory-Unity-Model repository](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model). And take a special look at:
@@ -369,9 +413,7 @@ Let's deep dive into the code.
 2- Make the Virtual Factory react to the results of the Compute Vision model
 
 
-<p align="center">
-<img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0137eab4-bd53-4896-bf39-087a23cd0ce3" width="60%" height="60%"/>
-</p>
+
 
 
 
