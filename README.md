@@ -364,6 +364,7 @@ The [full code is available here](https://github.com/mongodb-industry-solutions/
 
 ### Virtual Factory Connection
 At this stage, we have to:
+
 1- Create the schema in Unity to connect Realm with MongoDB Atlas. 
 2- Make the Virtual Factory react to the results of the Compute Vision model
 
