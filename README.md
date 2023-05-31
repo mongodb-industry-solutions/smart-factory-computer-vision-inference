@@ -353,7 +353,7 @@ As explained below in the graphic, the Unity model of the Virtual Factory will h
 
 ### The importance of Realm and Device Sync
 
-This is arguably the most important part of the demo since it ties everything together and makes MongoDB an End-to-End solution for Digital Twin applications.
+This is arguably the most important part of the demo since it ties everything together and makes MongoDB an End-to-End solution for highly performant, always connected Digital Twins.
 
 With **Realm** there's no need for an ORM layer when connected to MongoDB, and it basically embeds an ultra-ligthweight object oriented database directly on the Twin. Which combined with **Device Sync**, enables to connect it with MongoDB and ensure your devices, twins and apps will always be in sync with the cloud database even when there's a failure in the connection. This is thanks to the [best-in-class conflict resolution](https://www.mongodb.com/docs/atlas/app-services/sync/details/conflict-resolution/#conflict-resolution) capabilities of Device Sync.
 
@@ -363,7 +363,7 @@ As you can see, the combination of these technologies is what enables the develo
 
 
 ### Virtual Factory Connection
-At this stage, we have to:
+Let's deep dive into the code. 
 
 1- Create the schema in Unity to connect Realm with MongoDB Atlas. 
 2- Make the Virtual Factory react to the results of the Compute Vision model
