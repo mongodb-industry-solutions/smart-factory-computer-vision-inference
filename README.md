@@ -409,7 +409,50 @@ As you can see, the combination of these technologies is what enables the develo
 ### Virtual Factory Connection
 Let's deep dive into the code. 
 
-1- Create the schema in Unity to connect Realm with MongoDB Atlas. 
+1- Create the schema in Unity to connect Realm with MongoDB. 
+This step is made extremely simple thanks to MongoDB Atlas. On the Realm SDK section, once we have created the MongoDB collections, we will have all object defitions in different programming langugages, as well as code examples that can help you install and use Realm SDKs in your application code.
+<img width="1715" alt="image" src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0f35f260-85c6-4483-95be-a978f68e5b11">
+
+It's as simple as taking the object defitions, and apply them in your application on code. For us, this is on [Smart-Factory-Unity-Model/Assets/Schema.cs](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model/blob/main/Assets/Schema.cs).
+
+Below a code sample of the `sagemaker_stock_inference` object definition, and it's nested object `is_present`: 
+```cs
+using System;
+using System.Collections.Generic;
+using Realms;
+using MongoDB.Bson;
+
+public partial class sagemaker_stock_inference : IRealmObject
+{
+    [MapTo("_id")]
+    [PrimaryKey]
+    public ObjectId? Id { get; set; }
+
+    [MapTo("_partition")]
+    [Required]
+    public string Partition { get; set; }
+
+    [MapTo("is_present")]
+    public sagemaker_stock_inference_is_present? IsPresent { get; set; }
+
+    [MapTo("ts")]
+    public DateTimeOffset? Ts { get; set; }
+}
+
+public partial class sagemaker_stock_inference_is_present : IEmbeddedObject
+{
+    [MapTo("blue")]
+    public bool? Blue { get; set; }
+
+    [MapTo("red")]
+    public bool? Red { get; set; }
+
+    [MapTo("white")]
+    public bool? White { get; set; }
+}
+```
+
+
 2- Make the Virtual Factory react to the results of the Compute Vision model
 
 
