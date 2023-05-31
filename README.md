@@ -343,23 +343,23 @@ sageMakerRuntime.invokeEndpoint(params, async function(err, data) {
 
 ## Digital Twin synchronization with Realm and Device Sync
 
-This is arguably the most important part of the demo since it ties everything together and makes MongoDB an End-to-End solution for Digital Twin applications.
-
-**Realm** is an ultra-ligthweight object oriented database designed specifically with network connectivity in mind and optimized for mobile/edge devices. With it, there's no need for an ORM layer and it comes with network-handling capabilities out of the box.
-
-**Device Sync** enables to connect Realm with MongoDB and ensure your devices, twins and apps will always be in Sync with the cloud database thanks to the built-in best-in-class conflict resolution capabilities.
-
-**Companies are implementing Realm and Device Sync for mission-critical applications:** The airline **Cathway Pacific** changed how pilots logged critical flight data, such as wind speed, elevation, oil pressure, and fuel consumption, manually via pen and paper to a fully digital, tablet-based app with MongoDB, Realm and Device Sync. With this they eliminated all papers from flights and did one of the first zero-paper flights in the world in 2019. Check the [full article here](https://www.mongodb.com/customers/cathay-pacific).
-
-The combination of these two technologies is what enables the development og trully connected digital twins with just one platform.
+To see the full code go to the [Smart-Factory-Unity-Model repository](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model). And take a special look at:
+- [Assets/Schema.cs](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model/blob/main/Assets/Schema.cs) - Where the Realm Schema is located
+- [Assets/Order.cs](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model/blob/main/Assets/Order.cs) - Where the logic of the factory is developed. 
 
 As explained below in the graphic, the Unity model of the Virtual Factory will have a instance of Realm, which will be connected to MongoDB Atlas through Device Sync. 
 
 ![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/192afb4b-bc51-4ff1-8a6b-c6c8bfce0661)
 
-The [full code is available here](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model). Take a special look at:
-- [Assets/Schema.cs](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model/blob/main/Assets/Schema.cs)
-- [Assets/Order.cs](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model/blob/main/Assets/Order.cs)
+### The importance of Realm and Device Sync
+
+This is arguably the most important part of the demo since it ties everything together and makes MongoDB an End-to-End solution for Digital Twin applications.
+
+With **Realm** there's no need for an ORM layer when connected to MongoDB, and it basically embeds an ultra-ligthweight object oriented database directly on the Twin. Which combined with **Device Sync**, enables to connect it with MongoDB and ensure your devices, twins and apps will always be in sync with the cloud database even when there's a failure in the connection. This is thanks to the [best-in-class conflict resolution](https://www.mongodb.com/docs/atlas/app-services/sync/details/conflict-resolution/#conflict-resolution) capabilities of Device Sync.
+
+Just as an example of how **companies are implementing Realm and Device Sync for mission-critical applications:** The airline **Cathway Pacific** changed how pilots logged critical flight data, such as wind speed, elevation, oil pressure, and fuel consumption, manually via pen and paper to a fully digital, tablet-based app with MongoDB, Realm and Device Sync. With this they eliminated all papers from flights and did one of the first zero-paper flights in the world in 2019. Check the [full article here](https://www.mongodb.com/customers/cathay-pacific).
+
+As you can see, the combination of these technologies is what enables the development of trully connected, highly performant digital twins within just one platform.
 
 
 ### Virtual Factory Connection
