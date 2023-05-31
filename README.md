@@ -15,6 +15,7 @@ A few major use cases of digital twins are:
 <img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/5c56123d-3def-4a9e-8d11-0ca530b98539" width="60%" height="30%"/>
 </p>
 
+
 MongoDB enables fast, secure and realiable development and maintenance of these digital twins thanks to the flexible Document model, Time Series Collections, Realm, Device Sync, among others. 
 
 In this repository we will show an End-to-End application of a Digital Twin reacting in real time to the results of a Computer Vision inference on the physical factory. 
@@ -94,8 +95,7 @@ A common solution is to store the images/videos in an object storage service suc
 
 A successful implementation of this efficient architecture is [Bosch's IoT Data Storage](https://bosch-iot-insights.com/static-contents/docu/html/Data-storage.html). 
 
-
-![Screenshot 2023-05-15 at 12 05 13](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/e8bfa64d-468a-4d20-bfde-cb0b36699986)
+<kbd><img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/e8bfa64d-468a-4d20-bfde-cb0b36699986" /></kbd>
 
 Which benefits of the reduced costs of Object storage and the fast and efficient way to use MongoDB for processing the files and manage the rest of the application. 
 
@@ -222,18 +222,16 @@ clf_estimator.set_hyperparameters(
 )
 ```
 
-
-
-
-![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/943cc7f5-41a7-4717-93e3-194fee28d7c4)
+<kbd><img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/943cc7f5-41a7-4717-93e3-194fee28d7c4" /></kbd>
 After a few checks and a confirmation of the model's parameters, the model will start to go through each epoch:
 
+<kbd><img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/a4700c23-8249-4b71-9d3f-2b70aeb29f5c" /></kbd>
 
-![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/a4700c23-8249-4b71-9d3f-2b70aeb29f5c)
 #### Evaluation
 When Sagemaker finds a new higher validation accuracy, it will automatically save that version of the model. In our case that happened in Epoch 83, with a validation accuracy of 0.708333:
 
-![image](https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/bf7b1057-4104-4d7f-8583-4deb14a10ecf)
+<kbd><img src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/bf7b1057-4104-4d7f-8583-4deb14a10ecf" /></kbd>
+
 
 When the model has gone through all the epochs, it will automatically stop training and the model version with the highest validation accuracy will be stored.
 
@@ -410,8 +408,11 @@ As you can see, the combination of these technologies is what enables the develo
 Let's deep dive into the code. 
 
 1- Create the schema in Unity to connect Realm with MongoDB. 
+
 This step is made extremely simple thanks to MongoDB Atlas. On the Realm SDK section, once we have created the MongoDB collections, we will have all object defitions in different programming langugages, as well as code examples that can help you install and use Realm SDKs in your application code.
-<img width="1715" alt="image" src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0f35f260-85c6-4483-95be-a978f68e5b11">
+
+
+<kbd><img width="1715" alt="image" src="https://github.com/mongodb-industry-solutions/smart-factory-computer-vision-inference/assets/45240043/0f35f260-85c6-4483-95be-a978f68e5b11"></kbd>
 
 It's as simple as taking the object defitions, and apply them in your application on code. For us, this is on [Smart-Factory-Unity-Model/Assets/Schema.cs](https://github.com/mongodb-industry-solutions/Smart-Factory-Unity-Model/blob/main/Assets/Schema.cs).
 
