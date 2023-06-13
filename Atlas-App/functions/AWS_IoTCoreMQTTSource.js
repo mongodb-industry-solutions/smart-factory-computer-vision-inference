@@ -8,10 +8,9 @@ exports = function({ query, headers, body}, response) {
       // Convert date string into date Type
       message.ts = new Date(message.ts);
       
-      // Including DTPartition for ordering in Unity Model 
-      if (message.topic === "f/i/order") {
-        message._partition = "DTPartition"
-      }
+      // Including DTPartition for Unity Schema
+
+      message._partition = "DTPartition";
       
       // Routing MQTT Message to different collections based on the Topic
       const default_collection = "mqtt"
@@ -20,7 +19,7 @@ exports = function({ query, headers, body}, response) {
         'i/ldr' : 'sensors',
         'i/bme680' : 'sensors'
       }
-      
+      console.log(JSON.stringify(message));
       // Writing into the database
       const collection = target_collection_map[message.topic] || default_collection
       context.services.get("mongodb-atlas").db("aws").collection(collection).insertOne(message)

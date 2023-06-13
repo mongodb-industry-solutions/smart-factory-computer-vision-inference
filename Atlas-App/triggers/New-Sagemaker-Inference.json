@@ -32,7 +32,7 @@
         "skip_catchup_events": false,
         "tolerate_resume_errors": false
     },
-    "disabled": true,
+    "disabled": false,
     "event_processors": {
         "FUNCTION": {
             "config": {
